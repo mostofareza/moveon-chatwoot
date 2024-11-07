@@ -16,7 +16,7 @@ module.exports = {
       colors: {
         border: {
           DEFAULT: "#00893C",
-          primary: "#00893C",
+          brand: "#00893C",
         },
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -60,7 +60,10 @@ module.exports = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
+        sans: ["Inter", ...fontFamily.sans],
+      },
+      textColor: {
+        subtext: "#6B7180"
       },
       keyframes: {
         "accordion-down": {

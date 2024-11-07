@@ -11,8 +11,8 @@ import { Wallet } from 'lucide-react';
 
 const IndexPage = () => (
   <div className="container py-4">
-    <Tabs defaultValue="dashboard">
-      <TabsList className="bg-green-primary gap-8">
+    <Tabs defaultValue="dashboard" className="w-full">
+      <TabsList className="bg-green-primary gap-8 min-w-full">
         <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
         <TabsTrigger value="buyAndShipOrders">Buy & Ship Orders</TabsTrigger>
         <TabsTrigger value="shipForMeOrders">Ship For Me Orders</TabsTrigger>
