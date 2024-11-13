@@ -1,0 +1,92 @@
+{
+  "primary_name": {
+    "label": "Agent company name",
+    "placeholder": "Enter a name",
+    "type": "string"
+  },
+  "operation_status": {
+    "label": "Operation status",
+    "placeholder": "Select a status",
+    "type": "select",
+    "values": [
+      {
+        "label": "Open for Everyone",
+        "value": "open-for-everyone"
+      },
+      {
+        "label": "Open for Admin",
+        "value": "open-for-admin"
+      },
+      {
+        "label": "Closed Operation",
+        "value": "closed-operation"
+      }
+    ]
+  },
+  "verification_status": {
+    "label": "Verification status",
+    "placeholder": "Select a status",
+    "type": "select",
+    "values": [
+      {
+        "label": "Pending",
+        "value": "pending"
+      },
+      {
+        "label": "Approved",
+        "value": "approved"
+      },
+      {
+        "label": "On Hold",
+        "value": "on-hold"
+      },
+      {
+        "label": "Rejected",
+        "value": "rejected"
+      }
+    ]
+  },
+  "created_at": {
+    "label": "Created At",
+    "placeholder": "Select a date",
+    "type": "daterange"
+  },
+  "sort_by": {
+    "label": "Sort By",
+    "placeholder": "Select a sort field",
+    "type": "select",
+    "values": [
+      {
+        "label": "Primary Name",
+        "value": "primary_name"
+      },
+      {
+        "label": "Operation Status",
+        "value": "operation_status"
+      },
+      {
+        "label": "Verification Status",
+        "value": "verification_status"
+      },
+      {
+        "label": "Created At",
+        "value": "created_at"
+      }
+    ]
+  },
+  "sort_order": {
+    "label": "Sort order",
+    "placeholder": "Select a sort order",
+    "type": "select",
+    "values": [
+      {
+        "label": "ASC",
+        "value": "asc"
+      },
+      {
+        "label": "DESC",
+        "value": "desc"
+      }
+    ]
+  }
+}
