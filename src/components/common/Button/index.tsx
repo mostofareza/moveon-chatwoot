@@ -1,56 +1,80 @@
-import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
-import { cva, type VariantProps } from "class-variance-authority"
+import React, { Children } from "react";
 
-import { cn } from "@/lib/utils"
+import clsx from "clsx";
+import Spinner from "../Spinner";
 
-const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
-  {
-    variants: {
-      variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
-        destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline:
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-        secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
-      },
-      size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-8",
-        icon: "h-10 w-10",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-      size: "default",
-    },
-  }
-)
-
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  asChild?: boolean
-}
+export type ButtonProps = {
+  variant: "primary" | "secondary" | "ghost" | "danger" | "nuclear" | "prime";
+  size?: "small" | "medium" | "large";
+  loading?: boolean;
+  spanClassName?: string;
+} & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : "button"
-    return (
-      <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
-        ref={ref}
-        {...props}
-      />
-    )
-  }
-)
-Button.displayName = "Button"
+  (
+    {
+      variant = "primary",
+      size = "large",
+      loading = false,
+      spanClassName,
+      children,
+      ...attributes
+    },
+    ref
+  ) => {
+    const handleClick = (
+      e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) => {
+      if (!loading && attributes.onClick) {
+        attributes.onClick(e);
+      }
+    };
 
-export { Button, buttonVariants }
+    const variantClassname = clsx({
+      ["btn-primary"]: variant === "primary",
+      ["btn-prime"]: variant === "prime",
+      ["btn-secondary"]: variant === "secondary",
+      ["btn-ghost"]: variant === "ghost",
+      ["btn-danger"]: variant === "danger",
+      ["btn-nuclear"]: variant === "nuclear",
+    });
+
+    const sizeClassname = clsx({
+      ["btn-large"]: size === "large",
+      ["btn-medium"]: size === "medium",
+      ["btn-small"]: size === "small",
+    });
+
+    return (
+      <button
+        {...attributes}
+        className={clsx(
+          "btn",
+          variantClassname,
+          sizeClassname,
+          attributes.className
+        )}
+        disabled={attributes.disabled || loading}
+        ref={ref}
+        onClick={handleClick}
+      >
+        {loading ? (
+          <Spinner size={size} variant={"secondary"} />
+        ) : (
+          Children.map(children, (child, i) => {
+            return (
+              <span
+                key={i}
+                className={clsx("mr-xsmall last:mr-0", spanClassName)}
+              >
+                {child}
+              </span>
+            );
+          })
+        )}
+      </button>
+    );
+  }
+);
+
+export default Button;
